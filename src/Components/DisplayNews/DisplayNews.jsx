@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const DisplayNews = ({ element }) => {
-  const { total_view, author, title, image_url, details, rating } = element;
+  const { _id,total_view, author, title, image_url, details, rating } = element;
 
 
 
@@ -31,12 +32,27 @@ const DisplayNews = ({ element }) => {
         <img src={image_url} alt="" className=" w-full" />
       </div>
       <div className=" py-8">
-        <p className=" text-lg font-medium text-[#706F6F]">{details}</p>
-        <p
+        <p className=" text-lg font-medium text-[#706F6F]">
+          {
+          details.length > 200 ? <>
+          <p>{details.slice(0,200)}</p>
+          <Link to={`/news/${_id}`} className=" no-underline">
+          <p
           className=" text-[#FF8C47] font-bold text-lg cursor-pointer"
         >
           Read More
         </p>
+          </Link>
+          </> 
+          : 
+          <>
+          <p>{details}</p>
+          </>
+          
+          }
+          
+          </p>
+        
       </div>
 
       <div style={{borderTop: "1px dashed #E7E7E7"}} className=" flex justify-between">

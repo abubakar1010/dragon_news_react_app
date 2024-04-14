@@ -1,10 +1,15 @@
+import HomeLayout from "../../Layouts/HomeLayout/HomeLayout";
 import Header from "../Shared/Header/Header";
+import NavBar from "../Shared/NavBar/NavBar";
+import BreakingNews from "./BreakingNews";
 
 const Home = () => {
     return (
         <div>
             <Header />
-            <h1 className=" bg-red-500 text-5xl font-poppins">Home</h1>
+            <BreakingNews />
+            <NavBar />
+            <HomeLayout />
         </div>
     );
 };
