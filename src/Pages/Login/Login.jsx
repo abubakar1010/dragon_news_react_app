@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../Shared/NavBar/NavBar";
 import {
   Card,
@@ -14,6 +14,10 @@ const Login = () => {
 
   const {login} =  useContext(AuthContext)
 
+  const location = useLocation()
+
+  const navigate = useNavigate()
+
   const handleLogin = (e) => {
 
     e.preventDefault()
@@ -28,7 +32,9 @@ const Login = () => {
     // login
 
     login(email,password)
-    .then()
+    .then( () => {
+      navigate( location?.state? location.state : "/")
+    })
     .catch(error => console.log(error))
 
 
@@ -83,11 +89,11 @@ const Login = () => {
                   className="flex items-center font-normal mt-8"
                 >
                   I agree the
-                  <h6
+                  <span
                     className="font-medium transition-colors hover:text-gray-900"
                   >
                     &nbsp;Terms and Conditions
-                  </h6>
+                  </span>
                 </Typography>
               }
               containerProps={{ className: "-ml-2.5" }}
