@@ -1,14 +1,19 @@
-import React from "react";
-import {
-  MobileNav,
-  Typography,
-  Button,
-  IconButton,
-} from "@material-tailwind/react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { MobileNav, Typography, IconButton } from "@material-tailwind/react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = React.useState(false);
+
+  const {user,logout} = useContext(AuthContext)
+
+  const handleLogout = () => {
+
+    logout()
+    .then()
+    .catch( error => console.log(error))
+  }
 
   React.useEffect(() => {
     window.addEventListener(
@@ -25,7 +30,7 @@ const NavBar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <NavLink className=" no-underline text-[#706F6F] flex items-center">
+        <NavLink to={"/"} className=" no-underline text-[#706F6F] flex items-center">
           Home
         </NavLink>
       </Typography>
@@ -57,21 +62,26 @@ const NavBar = () => {
       <div className="w-full my-12">
         <nav className="">
           <div className="flex items-center justify-between text-blue-gray-900">
-            <Typography
-              
-              className="mr-4 cursor-pointer py-1.5 font-medium"
-            >
+            <Typography className="mr-4 cursor-pointer py-1.5 font-medium">
               Material Tailwind
             </Typography>
-              <div className="mr-4 hidden lg:block">{navList}</div>
+            <div className="mr-4 hidden lg:block">{navList}</div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-x-1">
-                <button
-                  className=" text-white border-none outline-none bg-[#D72050] px-6 py-2 rounded-lg text-lg font-medium"
-                >
-                  Log In
-                </button>
-                
+                {
+                  user? 
+                  
+                  <button onClick={handleLogout} className=" text-white border-none outline-none bg-[#D72050] px-6 py-2 rounded-lg text-lg font-medium">
+                    LogOut
+                  </button>
+                  :
+                  <Link to={"/login"}>
+                  <button className=" text-white border-none outline-none bg-[#D72050] px-6 py-2 rounded-lg text-lg font-medium">
+                    Log In
+                  </button>
+                </Link>
+
+                }
               </div>
               <IconButton
                 variant="text"
