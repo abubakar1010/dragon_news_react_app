@@ -7,8 +7,32 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
+
+  const {login} =  useContext(AuthContext)
+
+  const handleLogin = (e) => {
+
+    e.preventDefault()
+
+    const form = new FormData(e.currentTarget)
+
+    const email = form.get("email")
+    const password = form.get("password")
+
+    console.log( password,email);
+
+    // login
+
+    login(email,password)
+    .then()
+    .catch(error => console.log(error))
+
+
+  }
   return (
     <div>
       <NavBar />
@@ -17,10 +41,10 @@ const Login = () => {
           <Typography variant="h4" color="blue-gray">
             Sign In
           </Typography>
-          <Typography color="gray" className="mt-1 font-normal">
+          <Typography color="gray" className=" font-normal">
             Nice to meet you! Enter your details to Login.
           </Typography>
-          <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+          <form onSubmit={handleLogin} className="mb-2 w-80 max-w-screen-lg sm:w-96">
             <div className="mb-1 flex flex-col gap-6">
               
               <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -28,6 +52,8 @@ const Login = () => {
               </Typography>
               <Input
                 size="lg"
+                name="email"
+                required
                 placeholder="name@mail.com"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                 labelProps={{
@@ -39,6 +65,8 @@ const Login = () => {
               </Typography>
               <Input
                 type="password"
+                name="password"
+                required
                 size="lg"
                 placeholder="********"
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -55,16 +83,16 @@ const Login = () => {
                   className="flex items-center font-normal mt-8"
                 >
                   I agree the
-                  <p
+                  <h6
                     className="font-medium transition-colors hover:text-gray-900"
                   >
                     &nbsp;Terms and Conditions
-                  </p>
+                  </h6>
                 </Typography>
               }
               containerProps={{ className: "-ml-2.5" }}
             />
-            <Button className="mt-6" fullWidth>
+            <Button type="submit" className="mt-6" fullWidth>
               sign up
             </Button>
             <Typography color="gray" className="mt-4 text-center font-normal">
