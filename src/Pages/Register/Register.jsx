@@ -7,9 +7,12 @@ import {
 } from "@material-tailwind/react";
 import NavBar from "../Shared/NavBar/NavBar";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Register = () => {
 
+  const {createUser} = useContext(AuthContext)
 
   const handleRegister = (e) => {
 
@@ -23,6 +26,15 @@ const Register = () => {
     const password = form.get("password")
 
     console.log(name, password, photo, email);
+
+    //create user
+
+    createUser(email, password)
+    .then( (result) => {
+
+      console.log(result.user);
+    })
+    .catch( error => console.log(error.message))
 
   }
   return (
